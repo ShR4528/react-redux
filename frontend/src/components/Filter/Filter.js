@@ -1,7 +1,4 @@
-
 import "./Filter.css";
-
-
 
 const Filter = () => {
     return (
