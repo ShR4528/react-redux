@@ -7,12 +7,28 @@ const BookList = () => {
     return (
         <div
             className="app-block book-list">
+            <h2>BookList</h2>
+            {books.lenght === 0 ? (
 
-            <h2>
-                Book List
-            </h2>
+                <p>No books avalible</p>
+
+            ) : (
+                <ul>
+                    {books.map((book, i) => (
+                        <li key={i}>
+                            <div className="book-info">
+                                {++i}.  {book.title} by <strong>{book.author}</strong>
+                            </div>
+                        </li>
+                    ))}
+                </ul>
+            )}
         </div>
     );
+
 };
+
+
+
 
 export default BookList;
