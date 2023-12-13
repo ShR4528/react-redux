@@ -3,11 +3,20 @@ import { v4 as uuidv4 } from 'uuid';
 import { useState } from "react";
 import { useDispatch } from 'react-redux';
 import { addBook } from '../../redux/books/actionCreators';
+import booksData from '../../data/books.json';
+
+
 
 const BookForm = () => {
     const [title, setTitle] = useState('');
     const [author, setAuthour] = useState('');
     const dispatch = useDispatch();
+
+    const handleAddRandomBook = () => {
+        console.log(booksData);
+
+
+    };
 
 
 
@@ -41,6 +50,7 @@ const BookForm = () => {
                     <input type='text' id="author" value={author} onChange={(e) => setAuthour(e.target.value)} />
                 </div>
                 <button type="submit">Add Book</button>
+                <button type="button" onClick={handleAddRandomBook}>Add Random</button>
             </form>
         </div>
     );
