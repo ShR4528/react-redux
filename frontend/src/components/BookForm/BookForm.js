@@ -9,18 +9,20 @@ import booksData from '../../data/books.json';
 
 const BookForm = () => {
     const [title, setTitle] = useState('');
-    const [author, setAuthour] = useState('');
+    const [author, setAuthor] = useState('');
     const dispatch = useDispatch();
 
     const handleAddRandomBook = () => {
         const randomIndex = Math.floor(Math.random() * booksData.length);
         const randomBook = booksData[randomIndex];
 
+        const randomBookID = {
+            ...randomBook,
+            id: uuidv4()
+        };
 
-
+        dispatch(addBook(randomBookID));
     };
-
-
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -33,11 +35,9 @@ const BookForm = () => {
             };
             dispatch(addBook(book));
             setTitle('');
-            setAuthour('');
+            setAuthor('');
         }
-
     };
-
     return (
         <div className="app-block book-form">
             <h2>Add a New Book</h2>
@@ -49,7 +49,7 @@ const BookForm = () => {
                 </div>
                 <div>
                     <label htmlFor="author">Author:</label>
-                    <input type='text' id="author" value={author} onChange={(e) => setAuthour(e.target.value)} />
+                    <input type='text' id="author" value={author} onChange={(e) => setAuthor(e.target.value)} />
                 </div>
                 <button type="submit">Add Book</button>
                 <button type="button" onClick={handleAddRandomBook}>Add Random</button>
@@ -57,5 +57,7 @@ const BookForm = () => {
         </div>
     );
 };
+
+
 
 export default BookForm;
