@@ -1,9 +1,12 @@
 import "./Filter.css";
 
 const Filter = () => {
+
     return (
         <div className="app-block filter">
-            Filter
+            <div className='filter-group'>
+                <input type='text' placeholder='Filter by title...' />
+            </div>
         </div>
     );
 };
