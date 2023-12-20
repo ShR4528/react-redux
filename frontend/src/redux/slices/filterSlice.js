@@ -15,4 +15,11 @@ const filterSlice = createSlice({
 
 });
 
+export const { setTitleFilter } = filterSlice.actions;
+export const selectTitleFilter = (state) => state.filter.title;
+
 export default filterSlice.reducer;
+
+
+
+
