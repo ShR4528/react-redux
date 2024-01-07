@@ -7,13 +7,9 @@ import createBookWithID from '../../utils/createBookWithID';
 
 const initialState = [];
 
-const fetchBook = createAsyncThunk(
-    'books/fetchBook',
-
+export const fetchBook = createAsyncThunk('books/fetchBook',
     async () => {
         const res = await axios.get('http://localhost:4000/random-book');
-        console.log(res.data);
-
         return res.data;
     }
 );
@@ -50,8 +46,11 @@ const booksSlice = createSlice({
             });
 
         },
-
-
+    },
+    extraReducers: (builder) => {
+        builder.addCase(fetchBook.fulfilled, (state, action) => {
+            state.push(action.payload);
+        });
     }
 });
 
