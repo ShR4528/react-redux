@@ -5,7 +5,11 @@ import createBookWithID from '../../utils/createBookWithID';
 
 
 
-const initialState = [];
+const initialState = {
+    books: [],
+    errorMsg: ''
+};
+
 
 export const fetchBook = createAsyncThunk('books/fetchBook',
     async () => {
@@ -52,6 +56,9 @@ const booksSlice = createSlice({
             if (action.payload.title && action.payload.author) {
                 state.push(createBookWithID(action.payload, "Api"));
             }
+        });
+        builder.addCase(fetchBook.rejected, (state, action) => {
+            console.log("Error fetching the book");
         });
     }
 });
