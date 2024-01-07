@@ -1,9 +1,23 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import createBookWithID from '../../utils/createBookWithID';
 
 
+
+
 const initialState = [];
+
+const fetchBook = createAsyncThunk(
+    'books/fetchBook',
+
+    async () => {
+        const res = await axios.get('http://localhost:4000/random-book');
+        console.log(res.data);
+
+        return res.data;
+    }
+);
+
 
 // Создаем срез (slice) для состояния книг с редюсерами и экшенами
 const booksSlice = createSlice({
