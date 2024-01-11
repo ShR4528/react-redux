@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import booksReducer from './slices/booksSlice';
 import filterSlice from './slices/filterSlice';
+import errorReducer from './slices/errorSlices';
 
 
 const store = configureStore({
@@ -8,7 +9,8 @@ const store = configureStore({
         // Передаем срез книг и срез фильтра
 
         books: booksReducer,
-        filter: filterSlice
+        filter: filterSlice,
+        error: errorReducer
     },
 });
 
