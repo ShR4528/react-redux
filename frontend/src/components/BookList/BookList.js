@@ -20,7 +20,7 @@ const BookList = () => {
     };
 
 
-    const filterBooks = books.filter((book) => {
+    const filterBooks = books.filter(book => {
         console.log(books);
         const matchesTitle = book.title
             .toLowerCase()
@@ -50,17 +50,6 @@ const BookList = () => {
         });
 
     };
-
-
-
-
-
-
-
-
-
-
-
 
     return (
         <div

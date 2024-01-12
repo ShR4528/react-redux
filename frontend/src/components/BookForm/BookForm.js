@@ -37,6 +37,7 @@ const BookForm = () => {
 
     const handleAddRandomByApi = () => {
         dispatch(fetchBook);
+        //
     };
     return (
         <div className="app-block book-form">
