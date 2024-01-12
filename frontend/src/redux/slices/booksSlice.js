@@ -29,6 +29,7 @@ const booksSlice = createSlice({
     initialState,
 
     // Определяем функции редюсеров для изменения состояния
+
     reducers: {
 
         // Добавляем новую книгу в массив состояния
@@ -68,6 +69,6 @@ export const { addBook, deleteBook, toggleFavorite } = booksSlice.actions;
 
 
 
-export const selectBooks = (state) => state.books;
+export const selectBooks = (state) => state.books.books;
 
 export default booksSlice.reducer;

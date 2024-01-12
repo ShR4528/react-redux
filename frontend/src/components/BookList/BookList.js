@@ -12,6 +12,26 @@ const BookList = () => {
     const authorFilter = useSelector(selectAuthorFilter);
     const onlyFavoriteFilter = useSelector(selectOnlyFavorite);
 
+    const handleDeleteBook = (id) => {
+        dispatch(deleteBook(id));
+    };
+    const handleToggleFavorite = (id) => {
+        dispatch(toggleFavorite(id));
+    };
+
+
+    const filterBooks = books.filter((book) => {
+        console.log(books);
+        const matchesTitle = book.title
+            .toLowerCase()
+            .includes(titleFilter.toLowerCase());
+        const matchesAuthor = book.author
+            .toLowerCase()
+            .includes(authorFilter.toLowerCase());
+        const matchesFavorite = onlyFavoriteFilter ? book.isFavorite : true;
+        return matchesTitle && matchesAuthor && matchesFavorite;
+
+    });
     const highlightMatch = (text, filter) => {
         if (!filter) return text;
 
@@ -32,25 +52,11 @@ const BookList = () => {
     };
 
 
-    const handleDeleteBook = (id) => {
-        dispatch(deleteBook(id));
-    };
-    const handleToggleFavorite = (id) => {
-        dispatch(toggleFavorite(id));
-    };
 
 
-    const filterBooks = books.filter((book) => {
-        const matchesTitle = book.title
-            .toLowerCase()
-            .includes(titleFilter.toLowerCase());
-        const matchesAuthor = book.author
-            .toLowerCase()
-            .includes(authorFilter.toLowerCase());
-        const matchesFavorite = onlyFavoriteFilter ? book.isFavorite : true;
-        return matchesTitle && matchesAuthor && matchesFavorite;
 
-    });
+
+
 
 
 
