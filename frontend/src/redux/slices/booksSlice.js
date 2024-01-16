@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import createBookWithID from '../../utils/createBookWithID';
+import { setError } from './errorSlice';
 
 
 
@@ -12,29 +13,24 @@ const initialState = {
 
 
 export const fetchBook = createAsyncThunk('books/fetchBook',
-    async () => {
-        const res = await axios.get('http://localhost:4000/random-book');
-        return res.data;
+    async (url, thunkApi) => {
+        try {
+            const res = await axios.get(url);
+            return res.data;
+        } catch (error) {
+            thunkApi.dispatch(setError('error.message'));
+            throw error;
+        }
+
     }
 );
 
-
-// Создаем срез (slice) для состояния книг с редюсерами и экшенами
 const booksSlice = createSlice({
-
-    // Называем срез
     name: 'books',
-
-    // Определяем начальное состояние
     initialState,
-
-    // Определяем функции редюсеров для изменения состояния
-
     reducers: {
-
-        // Добавляем новую книгу в массив состояния
         addBook: (state, action) => {
-            state.push(action.payload);
+            state.books.push(action.payload);
         },
 
         // Удаляем книгу по id из массива состояния
@@ -42,9 +38,8 @@ const booksSlice = createSlice({
             return state.filter((book) => book.id !== action.payload);
         },
 
-        // Переключаем статус "избранное" для книги по id
         toggleFavorite: (state, action) => {
-            state.forEach((book) => {
+            state.books.forEach((book) => {
                 if (book.id === action.payload) {
                     book.isFavorite = !book.isFavorite;
                 }
@@ -58,9 +53,7 @@ const booksSlice = createSlice({
                 state.push(createBookWithID(action.payload, "Api"));
             }
         });
-        builder.addCase(fetchBook.rejected, (state, action) => {
-            console.log("Error fetching the book");
-        });
+
     }
 });
 

@@ -38,8 +38,8 @@ const BookForm = () => {
 
 
     const handleAddRandomByApi = () => {
-        dispatch(fetchBook);
-        console.log(fetchBook);
+        dispatch(fetchBook('http://localhost:4000/random-book'));
+
 
 
     };

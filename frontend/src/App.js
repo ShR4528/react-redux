@@ -21,7 +21,7 @@ function App() {
           <BookList />
         </div>
       </main>
-      {/* <Error /> */}
+      <Error />
     </div>
   );
 }

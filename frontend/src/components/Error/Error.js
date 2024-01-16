@@ -14,7 +14,7 @@ const Error = () => {
 
     useEffect(() => {
         if (errorMessage) {
-            toast.error(errorMessage);
+            toast.info(errorMessage);
             dispatch(clearError());
         }
     }, [errorMessage, dispatch]);
