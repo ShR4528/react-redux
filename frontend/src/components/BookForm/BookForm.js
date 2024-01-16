@@ -1,6 +1,6 @@
 import './BookForm.css';
 
-
+import { setError } from '../../redux/slices/errorSlice';
 import { useState } from "react";
 import { useDispatch } from 'react-redux';
 import { addBook, fetchBook } from '../../redux/slices/booksSlice';
@@ -30,6 +30,8 @@ const BookForm = () => {
             dispatch(addBook(createBookWithID({ title, author }, 'manual')));
             setTitle('');
             setAuthor('');
+        } else {
+            dispatch(setError('Ad author and title'));
         }
     };
 
@@ -37,7 +39,9 @@ const BookForm = () => {
 
     const handleAddRandomByApi = () => {
         dispatch(fetchBook);
-        //
+        console.log(fetchBook);
+
+
     };
     return (
         <div className="app-block book-form">
