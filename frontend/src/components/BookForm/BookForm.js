@@ -32,14 +32,20 @@ const BookForm = () => {
             setTitle('');
             setAuthor('');
         } else {
-            dispatch(setError('Ad author and title'));
+            dispatch(setError('Add author and title'));
         }
     };
 
 
 
-    const handleAddRandomByApi = () => {
-        dispatch(fetchBook('http://localhost:4000/random-book-delayed'));
+    const handleAddRandomByApi = async () => {
+        try {
+            setIsLoading(true);
+            await dispatch(fetchBook('http://localhost:4000/random-book-delayed'));
+        } finally {
+            setIsLoading(false);
+        }
+
 
 
 

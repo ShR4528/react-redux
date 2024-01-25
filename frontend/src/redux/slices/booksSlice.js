@@ -8,6 +8,7 @@ import { setError } from './errorSlice';
 
 const initialState = {
     books: [],
+    isLoadingViaApi: false,
     errorMsg: ''
 };
 
@@ -33,7 +34,7 @@ const booksSlice = createSlice({
             state.books.push(action.payload);
         },
         deleteBook: (state, action) => {
-            return state.filter((book) => book.id !== action.payload);
+            return { ...state, books: state.books.filter((book) => book.id !== action.payload) };
         },
         toggleFavorite: (state, action) => {
             state.books.forEach((book) => {
@@ -45,10 +46,17 @@ const booksSlice = createSlice({
         },
     },
     extraReducers: {
+        [fetchBook.pending]: (state) => {
+            state.isLoadingViaApi = true;
+        },
         [fetchBook.fulfilled]: (state, action) => {
+            state.isLoadingViaApi = false;
             if (action.payload.title && action.payload.author) {
                 state.books.push(createBookWithID(action.payload, "Api"));
             }
+        },
+        [fetchBook.rejected]: (state) => {
+            state.isLoadingViaApi = false;
         }
     }
 
