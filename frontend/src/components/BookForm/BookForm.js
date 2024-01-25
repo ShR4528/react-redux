@@ -1,5 +1,5 @@
 import './BookForm.css';
-
+import { FaSpinner } from 'react-icons/fa';
 import { setError } from '../../redux/slices/errorSlice';
 import { useState } from "react";
 import { useDispatch } from 'react-redux';
@@ -15,6 +15,7 @@ const BookForm = () => {
     const [title, setTitle] = useState('');
     const [author, setAuthor] = useState('');
     const dispatch = useDispatch();
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleAddRandomBook = () => {
         const randomIndex = Math.floor(Math.random() * booksData.length);
@@ -58,9 +59,16 @@ const BookForm = () => {
                 </div>
                 <button type="submit">Add Book</button>
                 <button type="button" onClick={handleAddRandomBook}>Add Random</button>
-                <button type="button" onClick={handleAddRandomByApi}>
-                    Add random Api
+
+                <button type="button" onClick={handleAddRandomByApi} disabled={isLoading}>
+                    {isLoading ? (
+                        <>  <span>Loading...</span>
+                            <FaSpinner className='spinner' />
+                        </>
+                    ) : 'Add random Api'}
+
                 </button>
+
             </form>
         </div>
     );
